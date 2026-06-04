@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FenetrePrincipale</class>
+ <widget class="QMainWindow" name="FenetrePrincipale">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>860</width>
+    <height>820</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Informations Système</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+/* ── Fenêtre principale ─────────────────────── */
+QMainWindow, #widgetCentral {
+    background-color: #0d1117;
+}
+
+/* ── En-tête ────────────────────────────────── */
+#labelTitre {
+    font-family: 'Courier New', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    color: #58a6ff;
+    letter-spacing: 1px;
+}
+#labelSousTitre {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: #6e7681;
+    letter-spacing: 2px;
+}
+
+/* ── Bouton actualiser ──────────────────────── */
+#boutonActualiser {
+    background: transparent;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    color: #8b949e;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    padding: 6px 18px;
+    min-width: 120px;
+}
+#boutonActualiser:hover {
+    background: #161b22;
+    border-color: #58a6ff;
+    color: #58a6ff;
+}
+#boutonActualiser:pressed {
+    background: #0d419d;
+    color: #ffffff;
+}
+
+/* ── Séparateur ─────────────────────────────── */
+#ligneHorizontale {
+    color: #21262d;
+}
+
+/* ── Cartes ─────────────────────────────────── */
+#carteSysteme, #carteCpu, #carteRam, #carteDique, #carteReseau {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 12px;
+}
+#carteSysteme:hover, #carteCpu:hover, #carteRam:hover,
+#carteDique:hover, #carteReseau:hover {
+    border-color: #30363d;
+    background: #1a2030;
+}
+
+/* ── Labels titres de section ───────────────── */
+#labelTitreSysteme, #labelTitreCpu, #labelTitreRam,
+#labelTitreDique, #labelTitreReseau {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    color: #58a6ff;
+    letter-spacing: 2px;
+    padding: 0px;
+}
+
+/* ── Labels clés (NOM MACHINE, OS…) ─────────── */
+#labelNomMachine, #labelSysteme, #labelTempsActivite,
+#labelCpuNoyaux, #labelArchitecture, #labelProcessus,
+#labelRamTotal, #labelRamDisponible,
+#labelDiqueTaille, #labelDiqueUtilise, #labelDiqueLibre,
+#labelPaquets, #labelAdresseIP {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: #6e7681;
+    letter-spacing: 1px;
+}
+
+/* ── Labels valeurs ─────────────────────────── */
+#valeurNomMachine, #valeurSysteme, #valeurTempsActivite,
+#valeurCpuNoyaux, #valeurArchitecture, #valeurProcessus,
+#valeurRamTotal, #valeurRamDisponible,
+#valeurDiqueTaille, #valeurDiqueUtilise, #valeurDiqueLibre,
+#valeurPaquets, #valeurAdresseIP {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: #e6edf3;
+}
+
+/* ── Barres de progression ──────────────────── */
+QProgressBar {
+    background: #21262d;
+    border: none;
+    border-radius: 3px;
+    height: 6px;
+    text-align: center;
+}
+QProgressBar::chunk {
+    background: #56d364;
+    border-radius: 3px;
+}
+
+/* ── Pied de page ───────────────────────────── */
+#labelDerniereMaj, #labelAutoRefresh {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: #484f58;
+}
+
+/* ── Icônes ─────────────────────────────────── */
+#iconeSysteme, #iconeCpu, #iconeRam, #iconeDique, #iconeReseau {
+    font-size: 22px;
+    color: #58a6ff;
+}
+   </string>
+  </property>
+  <widget class="QWidget" name="widgetCentral">
+   <layout class="QVBoxLayout" name="layoutPrincipal">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>24</number>
+    </property>
+    <property name="topMargin">
+     <number>20</number>
+    </property>
+    <property name="rightMargin">
+     <number>24</number>
+    </property>
+    <property name="bottomMargin">
+     <number>16</number>
+    </property>
+    <item>
+     <layout class="QHBoxLayout" name="layoutEntete">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <layout class="QVBoxLayout" name="layoutTitre">
+        <property name="spacing">
+         <number>3</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="labelTitre">
+          <property name="text">
+           <string>🖥  Informations Système</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelSousTitre">
+          <property name="text">
+           <string>APERÇU SYSTÈME EN DIRECT</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer name="espaceurEntete">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="boutonActualiser">
+        <property name="text">
+         <string>⟳  Actualiser</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>12</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QFrame" name="ligneHorizontale">
+      <property name="frameShape">
+       <enum>QFrame::HLine</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Sunken</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>14</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QFrame" name="carteSysteme">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <layout class="QVBoxLayout" name="layoutCarteSysteme">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <property name="leftMargin">
+        <number>16</number>
+       </property>
+       <property name="topMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>16</number>
+       </property>
+       <property name="bottomMargin">
+        <number>14</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="labelTitreSysteme">
+         <property name="text">
+          <string>SYSTÈME</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QGridLayout" name="grilleSysteme">
+         <property name="horizontalSpacing">
+          <number>30</number>
+         </property>
+         <property name="verticalSpacing">
+          <number>8</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelNomMachine">
+           <property name="text">
+            <string>NOM MACHINE</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="valeurNomMachine">
+           <property name="text">
+            <string>—</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelSysteme">
+           <property name="text">
+            <string>SYSTÈME</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="valeurSysteme">
+           <property name="text">
+            <string>—</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="labelTempsActivite">
+           <property name="text">
+            <string>TEMPS D'ACTIVITÉ</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLabel" name="valeurTempsActivite">
+           <property name="text">
+            <string>—</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>10</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QFrame" name="carteCpu">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <layout class="QVBoxLayout" name="layoutCarteCpu">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <property name="leftMargin">
+        <number>16</number>
+       </property>
+       <property name="topMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>16</number>
+       </property>
+       <property name="bottomMargin">
+        <number>14</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="labelTitreCpu">
+         <property name="text">
+          <string>PROCESSEUR &amp; SYSTÈME</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutCpuRangee">
+         <property name="spacing">
+          <number>30</number>
+         </property>
+         <item>
+          <layout class="QVBoxLayout">
+           <property name="spacing">
+            <number>3</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelCpuNoyaux">
+             <property name="text">
+              <string>CŒURS CPU</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="valeurCpuNoyaux">
+             <property name="text">
+              <string>—</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout">
+           <property name="spacing">
+            <number>3</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelArchitecture">
+             <property name="text">
+              <string>ARCHITECTURE</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="valeurArchitecture">
+             <property name="text">
+              <string>—</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout">
+           <property name="spacing">
+            <number>3</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelProcessus">
+             <property name="text">
+              <string>PROCESSUS</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="valeurProcessus">
+             <property name="text">
+              <string>—</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>10</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QFrame" name="carteRam">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <layout class="QVBoxLayout" name="layoutCarteRam">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <property name="leftMargin">
+        <number>16</number>
+       </property>
+       <property name="topMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>16</number>
+       </property>
+       <property name="bottomMargin">
+        <number>14</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="labelTitreRam">
+         <property name="text">
+          <string>MÉMOIRE RAM</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutRamRangee">
+         <property name="spacing">
+          <number>30</number>
+         </property>
+         <item>
+          <layout class="QVBoxLayout">
+           <property name="spacing">
+            <number>3</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelRamTotal">
+             <property name="text">
+              <string>TOTAL</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="valeurRamTotal">
+             <property name="text">
+              <string>—</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout">
+           <property name="spacing">
+            <number>3</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelRamDisponible">
+             <property name="text">
+              <string>DISPONIBLE</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="valeurRamDisponible">
+             <property name="text">
+              <string>—</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QProgressBar" name="barreRam">
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>10</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QFrame" name="carteDique">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <layout class="QVBoxLayout" name="layoutCarteDique">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <property name="leftMargin">
+        <number>16</number>
+       </property>
+       <property name="topMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>16</number>
+       </property>
+       <property name="bottomMargin">
+        <number>14</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="labelTitreDique">
+         <property name="text">
+          <string>DISQUE ( / )</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutDiqueRangee">
+         <property name="spacing">
+          <number>30</number>
+         </property>
+         <item>
+          <layout class="QVBoxLayout">
+           <property name="spacing">
+            <number>3</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelDiqueTaille">
+             <property name="text">
+              <string>TAILLE</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="valeurDiqueTaille">
+             <property name="text">
+              <string>—</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout">
+           <property name="spacing">
+            <number>3</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelDiqueUtilise">
+             <property name="text">
+              <string>UTILISÉ</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="valeurDiqueUtilise">
+             <property name="text">
+              <string>—</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout">
+           <property name="spacing">
+            <number>3</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelDiqueLibre">
+             <property name="text">
+              <string>LIBRE</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="valeurDiqueLibre">
+             <property name="text">
+              <string>—</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QProgressBar" name="barreDique">
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>10</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QFrame" name="carteReseau">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <layout class="QVBoxLayout" name="layoutCarteReseau">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <property name="leftMargin">
+        <number>16</number>
+       </property>
+       <property name="topMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>16</number>
+       </property>
+       <property name="bottomMargin">
+        <number>14</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="labelTitreReseau">
+         <property name="text">
+          <string>RÉSEAU &amp; LOGICIELS</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutReseauRangee">
+         <property name="spacing">
+          <number>30</number>
+         </property>
+         <item>
+          <layout class="QVBoxLayout">
+           <property name="spacing">
+            <number>3</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelAdresseIP">
+             <property name="text">
+              <string>ADRESSE IP</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="valeurAdresseIP">
+             <property name="text">
+              <string>—</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout">
+           <property name="spacing">
+            <number>3</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelPaquets">
+             <property name="text">
+              <string>PAQUETS</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="valeurPaquets">
+             <property name="text">
+              <string>—</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer name="espaceurBas">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Expanding</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>10</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QFrame" name="ligneHorizontaleBas">
+      <property name="frameShape">
+       <enum>QFrame::HLine</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Sunken</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>6</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="layoutPied">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="labelDerniereMaj">
+        <property name="text">
+         <string>Dernière mise à jour : —</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelAutoRefresh">
+        <property name="text">
+         <string>joslynsamuel86@gmail.com</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
